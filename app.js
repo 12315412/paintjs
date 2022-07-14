@@ -103,3 +103,30 @@ if (mode) {
 if (saveBtn) {
   saveBtn.addEventListener("click", handleSaveClick);
 }
+
+
+const input = document.querySelector('#targetImg');
+const res = document.querySelector(".res");
+
+input.addEventListener('change', (e)=> { 
+
+    const file = e.target.files[0];
+    const ctx = canvas.getContext('2d'); //캔버스 그리기
+    const reader = new FileReader();
+    const img = new Image(); 
+
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+        img.src = e.target.result;
+        img.onload = () => {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+        }
+
+    }
+
+
+    res.appendChild(canvas);
+    
+});
